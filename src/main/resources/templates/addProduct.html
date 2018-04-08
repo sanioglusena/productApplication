@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New Product</title>
+    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>New Product</h1>
+    <div class="col-md-4">
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Log Out" class="btn btn-danger"/>
+        </form>
+    </div>
+    <form th:object="${product}" th:action="@{save}" action="#" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Name"/>
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="category">Category</label>
+            <select class="form-control" id="category" th:field="*{category}">
+                <option th:each="category : ${T(com.example.shoppingwebapplication.Entity.ProductCategory).values()}"
+                        th:value="${category}"
+                        th:text="${category}">
+                </option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" id="price" th:field="*{price}" placeholder="Price"/>
+        </div>
+        <div class="form-group">
+            <label for="fileData">Upload Image</label>
+            <input type="file" id="fileData" class="form-control" th:field="*{fileData}"/>
+        </div>
+        <button type="submit" class="btn btn-primary" value="Save">Submit</button>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sd="http://www.thymeleaf.org/spring-data">
+<head>
+    <title>Products</title>
+    <link type="text/css" rel="stylesheet" th:href="@{../css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container">
+    <h1>Products</h1>
+    <table class="table table-striped">
+        <tr>
+            <th><a class="sorted" sd:pagination-sort="name">Name</a></th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Image</th>
+        </tr>
+        <tr th:each="row : ${page}">
+            <td th:text="${row.name}"></td>
+            <td th:text="${row.category}"></td>
+            <td th:text="'$' + ${row.price}"></td>
+            <td><img alt="Image" class="img-responsive" th:src="@{'/product/image?productId=' + ${row.id}}" width="100" height="75" /></td>
+        </tr>
+    </table>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div sd:pagination-summary="">info</div>
+        </div>
+        <div class="col-sm-6">
+            <nav class="pull-right">
+                <ul class="pagination" sd:pagination="full">
+                    <!-- Pagination created by SpringDataDialect -->
+                    <li class="disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                    </li>
+                    <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>
